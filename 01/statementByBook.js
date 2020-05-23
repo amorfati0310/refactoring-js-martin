@@ -32,11 +32,11 @@ function statment(invocie, plays) {
     let volumeCredits = 0;
     let result = `청구 내역 (고객명: ${inovice.customer})\n`
  
-    const formatAsUSD = (aNumber) => new Intl.NumberFormat("en-Us", {
+    const usd = (aNumber) => new Intl.NumberFormat("en-Us", {
             style: "currency",
             currency: "USD",
             minimumFractionDigits: 2
-        }).format(aNumber)
+        }).format(aNumber/ 100)
 
     function playFor(aPerformance){
         return plays[aPerformance.playID]
@@ -87,9 +87,9 @@ function statment(invocie, plays) {
       
      
         // 청구 내역을 출력한다. 
-        result += `${playFor(perf).name}: ${formatAsUSD(amountFor(perf) / 100)} (${perf.audience} 석) \n`
+        result += `${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience} 석) \n`
         totalAmount += amountFor(perf)
     }
-    result += `총액 ${formatAsUSD(totalAmount / 100)}`
+    result += `총액 ${usd(totalAmount)}`
     return result;
 }
