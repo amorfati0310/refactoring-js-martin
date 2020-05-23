@@ -31,11 +31,19 @@ function statment(invocie, plays) {
     let totalAmount = 0;
     let volumeCredits = 0;
     let result = `청구 내역 (고객명: ${inovice.customer})\n`
-    const format = new Intl.NumberFormat("en-Us", {
-        style: "currency",
-        currency: "USD",
-        minimumFractionDigits: 2
-    }).format
+    // const format = new Intl.NumberFormat("en-Us", {
+    //     style: "currency",
+    //     currency: "USD",
+    //     minimumFractionDigits: 2
+    // }).format
+
+    // 이 부분 function으로 바꿔주는데 함수 변수를 일반 function으로 바꿔주는 건 왜 refactoring? 
+    // -> 문제를 일으킬 수 있다 직접 접근 안정성 !!!
+    const format = (aNumber) => new Intl.NumberFormat("en-Us", {
+            style: "currency",
+            currency: "USD",
+            minimumFractionDigits: 2
+        }).format(aNumber)
 
     function playFor(aPerformance){
         return plays[aPerformance.playID]
