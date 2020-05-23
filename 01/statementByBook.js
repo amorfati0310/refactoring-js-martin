@@ -8,6 +8,12 @@
 
 // 조금씩 수정하여 피드백 주기를 짧게 가져간다. 
 
+// 테스트 -> 이상 없으면 커밋한다 
+// -> 난 반대네 커밋하고 -> 디버깅 했는데 습관이 _ㅇ ...
+// 그리고 어느정도 피쳐개발 수준으로 커밋이 쌓이면 푸시를 한다 ->
+
+
+
 function statment(invocie, plays) {
     let totalAmount = 0;
     let volumeCredits = 0;
@@ -19,27 +25,28 @@ function statment(invocie, plays) {
     }).format
 
     function amountFor(perf, play){
-        let thisAmount = 0;
+        let result = 0;
         switch(play.type){
             case "tragedy": {
-                thisAmount = 40000; 
+                result = 40000; 
                 if(audience > 30) {
-                    thisAmount += 1000 * (audience - 30)
+                    result += 1000 * (audience - 30)
                 }
                break;
             }
             case "comedy": {
-                thisAmount = 30000;
+                result = 30000;
                 if(audience > 20) {
-                    thisAmount += 10000 + 500 * (audience - 20)
+                    result += 10000 + 500 * (audience - 20)
                 }
-                return thisAmount += 300 * audience
+                result += 300 * audience
+                break;
             }
             default: {
                 throw new Error(`알 수 없는 장르 ${perf.type}`)
             }
         }
-        return thisAmount;
+        return result;
     }
 
     for(let perf of invocie.performances) {
