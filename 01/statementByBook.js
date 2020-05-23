@@ -41,9 +41,9 @@ function statment(invocie, plays) {
         return plays[aPerformance.playID]
     }
 
-    function amountFor(aPerformance, play){
+    function amountFor(aPerformance){
         let result = 0;
-        switch(play.type){
+        switch(playFor(aPerformance).type){
             case "tragedy": {
                 result = 40000; 
                 if(aPerformance.audience > 30) {
@@ -60,7 +60,7 @@ function statment(invocie, plays) {
                 break;
             }
             default: {
-                throw new Error(`알 수 없는 장르 ${aPerformance.type}`)
+                throw new Error(`알 수 없는 장르 ${playFor(aPerformance).type}`)
             }
         }
         return result;
@@ -71,7 +71,7 @@ function statment(invocie, plays) {
         // playFor amountFor 가독성 괜찮???
         // getPlay ? playFor 이런 느낌이려나 ?
         const play = playFor(perf)
-        let thisAmount = amountFor(perf, playFor(perf));
+        let thisAmount = amountFor(perf);
 
       
         // 포인트를 적립한다 
