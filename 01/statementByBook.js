@@ -76,20 +76,18 @@ function statment(invocie, plays) {
         return volumeCredits
     }
 
+    // for 문 분리
+
     for(let perf of invocie.performances) {
-        // 이 부분도 궁금하다 
-        // playFor amountFor 가독성 괜찮???
-        // getPlay ? playFor 이런 느낌이려나 ?
-        const play = playFor(perf)
-        let thisAmount = amountFor(perf);
-        let volumeCredits = 0;
-        volumeCredits += volumeCreditsFor(perf)
-      
-     
         // 청구 내역을 출력한다. 
         result += `${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience} 석) \n`
         totalAmount += amountFor(perf)
     }
+
+    for(let perf of invocie.performances) {
+        volumeCredits += volumeCreditsFor(perf)
+    }
+
     result += `총액 ${usd(totalAmount)}`
     return result;
 }
