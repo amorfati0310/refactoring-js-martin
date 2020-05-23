@@ -12,7 +12,20 @@
 // -> 난 반대네 커밋하고 -> 디버깅 했는데 습관이 _ㅇ ...
 // 그리고 어느정도 피쳐개발 수준으로 커밋이 쌓이면 푸시를 한다 ->
 
+// 변수들 명확한 의미를 가져가자 
 
+// play 변수 제거 하기 
+// performance를 통해서 가져오는 값이므로 -> 굳이 매개변수로 전달할 필요가 없다 
+// amountFor 안에서 계산 해주자 
+// 긴 함수를 쪼갤 때 이런 부분을 최대한 제거해주라 
+// 임시변수를 질의함수로 바꾸기 ?
+
+
+// 다음 변수 인라인 하기 
+// 가장 공감이 조금 덜한 부분 
+// 인라인으로 넣어준다라 ...
+// playFor(perf) 이게 쓰는 부분이 많은 걸 play로 줄여서 
+// 여러군데 써주면 이게 더 가독성이 좋을 것 같은데 ???
 
 function statment(invocie, plays) {
     let totalAmount = 0;
@@ -23,6 +36,10 @@ function statment(invocie, plays) {
         currency: "USD",
         minimumFractionDigits: 2
     }).format
+
+    function playFor(aPerformance){
+        return plays[aPerformance.playID]
+    }
 
     function amountFor(aPerformance, play){
         let result = 0;
@@ -50,7 +67,10 @@ function statment(invocie, plays) {
     }
 
     for(let perf of invocie.performances) {
-        const play = plays[perf.playID]
+        // 이 부분도 궁금하다 
+        // playFor amountFor 가독성 괜찮???
+        // getPlay ? playFor 이런 느낌이려나 ?
+        const play = playFor(perf)
         let thisAmount = amountFor(perf, play);
 
       
