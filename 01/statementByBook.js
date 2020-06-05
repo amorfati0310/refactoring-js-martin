@@ -27,20 +27,20 @@
 // playFor(perf) 이게 쓰는 부분이 많은 걸 play로 줄여서 
 // 여러군데 써주면 이게 더 가독성이 좋을 것 같은데 ???
 
+ 
+const usd = (aNumber) => new Intl.NumberFormat("en-Us", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2
+}).format(aNumber/ 100)
+
+function playFor(aPerformance){
+    return plays[aPerformance.playID]
+}
 function statment(invocie, plays) {
     let totalAmount = 0;
-    let volumeCredits = 0;
     let result = `청구 내역 (고객명: ${inovice.customer})\n`
- 
-    const usd = (aNumber) => new Intl.NumberFormat("en-Us", {
-            style: "currency",
-            currency: "USD",
-            minimumFractionDigits: 2
-        }).format(aNumber/ 100)
 
-    function playFor(aPerformance){
-        return plays[aPerformance.playID]
-    }
 
     function amountFor(aPerformance){
         let result = 0;
@@ -67,6 +67,7 @@ function statment(invocie, plays) {
         return result;
     }
 
+    let volumeCredits = 0;
     function volumeCreditsFor(perf){
         let volumeCredits = 0;
         volumeCredits += Math.max(perf.audience - 30, 0);
