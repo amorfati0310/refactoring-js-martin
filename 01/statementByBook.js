@@ -37,7 +37,6 @@ function playFor(aPerformance) {
   return plays[aPerformance.playID]
 }
 function statment(invocie, plays) {
-  let totalAmount = 0
   let result = `청구 내역 (고객명: ${inovice.customer})\n`
 
   function amountFor(aPerformance) {
@@ -65,28 +64,41 @@ function statment(invocie, plays) {
     return result
   }
 
-  let volumeCredits = 0
   function volumeCreditsFor(perf) {
-    let volumeCredits = 0
-    volumeCredits += Math.max(perf.audience - 30, 0)
+    let result = 0
+    result += Math.max(perf.audience - 30, 0)
     if ('comedy' === playFor(perf).type) {
-      volumeCredits += Math.floor(perf.audience / 5)
+      result += Math.floor(perf.audience / 5)
     }
-    return volumeCredits
+    return result
   }
 
   // for 문 분리
+  function totalAmount() {
+    let totalAmount = 0
+    for (let perf of invocie.performances) {
+      // 청구 내역을 출력한다.
+      totalAmount += amountFor(perf)
+      result += `${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience} 석) \n`
+    }
+    return totalAmount
+  }
 
+  function totalVolumeCredits() {
+    let volumeCredits = 0
+    for (let perf of invocie.performances) {
+      volumeCredits += volumeCreditsFor(perf)
+    }
+    return volumeCredits
+  }
   for (let perf of invocie.performances) {
     // 청구 내역을 출력한다.
-    result += `${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience} 석) \n`
     totalAmount += amountFor(perf)
+    result += `${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience} 석) \n`
   }
 
-  for (let perf of invocie.performances) {
-    volumeCredits += volumeCreditsFor(perf)
-  }
+  result += `총액 ${usd(totalAmount())}`
 
-  result += `총액 ${usd(totalAmount)}`
+  result += `적립포인트 ${totalVolumeCredits()} \n`
   return result
 }

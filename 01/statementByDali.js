@@ -9,6 +9,15 @@ return result string
 */
 
 // 1. return type 이나 param type 명시되면 좋을 듯
+// -> example
+/**
+ * Blend two colors together.
+ * @param {string} color1 - The first color, in hexadecimal format.
+ * @param {string} color2 - The second color, in hexadecimal format.
+ * @return {string} The blended color.
+ */
+export function blend(color1, color2) {}
+
 // 2. statement -> getStatement
 // 함수는 동사 + 명사 행위나 의도를 나타내면 더 좋을 듯
 // 3. destructuring 활용 해서 프로퍼티들을 좀 나눈다
@@ -76,5 +85,6 @@ function statment({ performances, customer }, plays) {
         ${initStatement}
         ${printStatementsByPeformance}
         총액 ${format(totalAmount / 100)}
+        적립포인트 ${volumeCredits()} \n
     `
 }
